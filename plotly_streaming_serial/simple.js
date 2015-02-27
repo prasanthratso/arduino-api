@@ -5,10 +5,10 @@
  * Find your API key and generate stream tokens in your settings: https://plot.ly/settings
  * More info in the Plotly-Node.js docs here: https://github.com/plotly/plotly-nodejs
 */
-var plotly_username = 'workshop';
-var plotly_api_key = 'v6w5xlbx9j';
-var plotly_stream_tokens = ['25tm9197rz', 'unbi52ww8a'];
-var plotly = require('plotly')(plotly_username, plotly_api_key);
+var plotly_username = 'krishnaprasanth';
+var plotly_api_key = 'jvwmrn6d51';
+var plotly_stream_tokens = ['7vphb2mqz5', 'n9plz4zszs'];
+var plotly = require('plotly')(krishnaprasanth,jvwmrn6d51);
 
 
 /*
@@ -16,8 +16,7 @@ var plotly = require('plotly')(plotly_username, plotly_api_key);
 */
 
 var data = [
-  {name: "Pin A0", x:[], y:[], stream:{token: plotly_stream_tokens[0], maxpoints:500}},
-  {name: "Pin A1", x:[], y:[], stream:{token: plotly_stream_tokens[1], maxpoints:500}}
+  {name: "Pin A0", x:[], y:[], stream:{token: plotly_stream_tokens[0], maxpoints:500}}
 ];
 var layout = {fileopt : "overwrite", filename : "arduino-johnny5-demo"};
 
@@ -42,11 +41,8 @@ board.on("ready", function() {
     "A0": new five.Sensor({
             pin: "A0",
             freq: 50 // send reading every 50ms
-          }),
-    "A1": new five.Sensor({
-            pin: "A1",
-            freq: 50 // send reading every 50ms
           })
+    
   };
 
 
@@ -66,10 +62,6 @@ board.on("ready", function() {
 
     var plotly_streams = {
       "A0": plotly.stream(plotly_stream_tokens[0], function (err, res) {
-              if (err) console.log(err);
-              console.log(res);
-            }),
-      "A1": plotly.stream(plotly_stream_tokens[1], function (err, res) {
               if (err) console.log(err);
               console.log(res);
             })
@@ -93,14 +85,7 @@ board.on("ready", function() {
       plotly_streams.A0.write(JSON.stringify(data)+"\n");
     });
 
-    sensors.A1.on("data", function(){
-      data = {
-        x: getDateString(),
-        y: this.value
-      };
-      plotly_streams.A1.write(JSON.stringify(data)+"\n");
-    });
-
+    
   });
 });
 
